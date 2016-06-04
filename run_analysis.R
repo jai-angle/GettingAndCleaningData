@@ -1,4 +1,4 @@
-# runanalysis.R is created as part of the Getting and Cleaning Data project to
+# run_analysis.R is created as part of the Getting and Cleaning Data project to
 # demonstrate the ability to collect, work with and clean the data set.
 
 # The code performs all the steps as required for the project and the snippet of
