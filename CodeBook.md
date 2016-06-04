@@ -32,7 +32,7 @@ All the user defined variables are self identifiable and are set in the begining
 step wise result logically. Following is the copy of the code that defines the initial user variables
 and the reading of the data into the data frames:-
 
-------------------------runAnalysis.R part code VARIABLES DEFINED start------------------------------
+------------------------run_analysis.R part code VARIABLES DEFINED start------------------------------
 
 # runAnalysis.R is created as part of the Getting and Cleaning Data project to
 # demonstrate the ability to collect, work with and clean the data set.
@@ -96,14 +96,14 @@ FeaturesData      <- tbl_df(read.table(file.path(FileLocation, FeaturesFile)))
 # Activity Label File:-
 activityLabels<- tbl_df(read.table(file.path(FileLocation, ActLabelFile)))
 
-------------------------runAnalysis.R part code VARIABLES DEFINED end------------------------------
+------------------------run_analysis.R part code VARIABLES DEFINED end------------------------------
 
 All the data is ready; now the data is merged by row binding first and then column binding the appropriate
 data. The binding is performed by looking at the relation between the data. Row binding is done for those 
 having the same number of columns and referring to the same entities. Column binding is done to merge them
 together.
 
-------------------------runAnalysis.R part code Project Step 1 start------------------------------
+------------------------run_analysis.R part code Project Step 1 start------------------------------
 # Now we have loaded all the required data. Next step is to accomplish the task as required
 # by the step as mentioned with the number below:-
 
@@ -131,7 +131,7 @@ colnames(dataTable) <- FeaturesData$featureName
 MergedSubjAct       <- cbind(MergedSubjectData, MergedActivityData)
 MergedDataTable     <- cbind(MergedSubjAct, dataTable)
 
-------------------------runAnalysis.R part code Project Step 1 output------------------------------
+------------------------run_analysis.R part code Project Step 1 output------------------------------
 
  str(MergedDataTable)
 'data.frame':	10299 obs. of  563 variables:
@@ -235,11 +235,11 @@ MergedDataTable     <- cbind(MergedSubjAct, dataTable)
  $ tBodyAccJerk-sma()                  : num  -0.994 -0.991 -0.988 -0.993 -0.994 ...
  $ tBodyAccJerk-energy()-X             : num  -1 -1 -1 -1 -1 ...
 
-------------------------runAnalysis.R part code Project Step 1 end------------------------------
+------------------------run_analysis.R part code Project Step 1 end------------------------------
 
 Now onto the second step of the Project
 
-------------------------runAnalysis.R part code Project Step 2 start------------------------------
+------------------------run_analysis.R part code Project Step 2 start------------------------------
 # 2. Extracts only the measurements on the mean and standard deviation for each measurement.
 
 # get only mean and std deviation data
@@ -249,7 +249,7 @@ FeaturesMeanStd   <- union(c("subject","activityNum"), FeaturesMeanStd)
 MergedDataTable   <- subset(MergedDataTable,select=FeaturesMeanStd) 
 
 # Task 2 accomplished...
-------------------------runAnalysis.R part code Project Step 2 output------------------------------
+------------------------run_analysis.R part code Project Step 2 output------------------------------
 > str(MergedDataTable)
 'data.frame':	10299 obs. of  68 variables:
  $ subject                    : int  1 1 1 1 1 1 1 1 1 1 ...
@@ -321,17 +321,17 @@ MergedDataTable   <- subset(MergedDataTable,select=FeaturesMeanStd)
  $ fBodyBodyGyroJerkMag-mean(): num  -0.992 -0.996 -0.995 -0.995 -0.995 ...
  $ fBodyBodyGyroJerkMag-std() : num  -0.991 -0.996 -0.995 -0.995 -0.995 ...
 
-------------------------runAnalysis.R part code Project Step 2 end------------------------------
+------------------------run_analysis.R part code Project Step 2 end------------------------------
 
 Now onto the third step of the Project
 
-------------------------runAnalysis.R part code Project Step 3 start------------------------------
+------------------------run_analysis.R part code Project Step 3 start------------------------------
 # 3 Uses descriptive activity names to name the activities in the data set
 
 MergedDataTable <- merge(activityLabels, MergedDataTable , by="activityNum", all.x=TRUE)
 MergedDataTable$activityName <- as.character(MergedDataTable$activityName)
 
-------------------------runAnalysis.R part code Project Step 3 output------------------------------
+------------------------run_analysis.R part code Project Step 3 output------------------------------
 > str(MergedDataTable)
 'data.frame':	10299 obs. of  69 variables:
  $ activityNum                : int  1 1 1 1 1 1 1 1 1 1 ...
@@ -405,7 +405,7 @@ MergedDataTable$activityName <- as.character(MergedDataTable$activityName)
  $ fBodyBodyGyroJerkMag-std() : num  -0.475 -0.351 -0.485 -0.413 -0.375 ...
 
 
-------------------------runAnalysis.R part code Project Step 3 end------------------------------
+------------------------run_analysis.R part code Project Step 3 end------------------------------
 
 Now onto step 4
 
@@ -422,7 +422,7 @@ names(MergedDataTable)<-gsub("^f", "frequency", names(MergedDataTable))
 names(MergedDataTable)<-gsub("Acc", "Accelerometer", names(MergedDataTable))
 names(MergedDataTable)<-gsub("Gyro", "Gyroscope", names(MergedDataTable))
 
-------------------------runAnalysis.R part code Project Step 4 output------------------------------
+------------------------run_analysis.R part code Project Step 4 output------------------------------
 
 > str(MergedDataTable)
 'data.frame':	10299 obs. of  69 variables:
@@ -496,11 +496,11 @@ names(MergedDataTable)<-gsub("Gyro", "Gyroscope", names(MergedDataTable))
  $ frequencyBodyGyroscopeJerkMagnitude-MEAN()    : num  -0.501 -0.453 -0.466 -0.409 -0.417 ...
  $ frequencyBodyGyroscopeJerkMagnitude-SD()      : num  -0.475 -0.351 -0.485 -0.413 -0.375 ...
 
-------------------------runAnalysis.R part code Project Step 4 output------------------------------
+------------------------run_analysis.R part code Project Step 4 output------------------------------
 
 Now onto final step 5
 
-------------------------runAnalysis.R part code Project Step 5 start------------------------------
+------------------------run_analysis.R part code Project Step 5 start------------------------------
 
 # 5. From the data set in step 4, creates a second, independent tidy data set with the average
 #    of each variable for each activity and each subject.
@@ -513,7 +513,7 @@ MergedDataTable <- tbl_df(arrange(AggrData, subject, activityName))
 write.table(MergedDataTable, "TidyData.txt", row.name=FALSE)
 
 
-------------------------runAnalysis.R part code Project Step 5 output------------------------------
+------------------------run_analysis.R part code Project Step 5 output------------------------------
 
 
 > str(MergedDataTable)
@@ -593,7 +593,7 @@ Classes 'tbl_df', 'tbl' and 'data.frame':	180 obs. of  69 variables:
 #The tidy data set a set of variables for each activity and each subject. 
 #The resulting data table has 180 rows and 69 columns 
 
-------------------------runAnalysis.R part code Project Step 5 end------------------------------
+------------------------run_analysis.R part code Project Step 5 end------------------------------
 
 All the steps of the project is accomplished and the final tidy data is stored in the file TidyData.txt.
 ```
