@@ -1,9 +1,4 @@
----
-title: "s"
-author: "J"
-date: "June 4, 2016"
-output: html_document
----
+# Getting and Cleaning Data Course Project
 
 ```
 Getting and Cleaning Data Course Project
